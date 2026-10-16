@@ -60,7 +60,7 @@ public:
 	rollinghash(const T& s) {
 		n = ssize(s);
 		hashvalue.resize(n + 1);
-		rep(i, n) hashvalue[i + 1] = hashvalue[i] * base + (s[i] + (1ULL << 32));
+		rep(i, n) hashvalue[i + 1] = hashvalue[i] * base + (ll(s[i]) + (1ULL << 32));
 		int pre = ssize(basepower);
 		if (pre < n + 1) {
 			basepower.resize(n + 1);
