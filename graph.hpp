@@ -31,7 +31,7 @@ vector<ll> dijkstra(int s, vector<vector<P<ll>>>& G) {
 }
 
 // 負閉路なし
-vector<vector<ll>> APSP(vector<vector<P<ll>>>& G) {
+vector<vector<ll>> APSP(vector<vector<P<ll>>> G) {
 	int n = ssize(G);
 	vector<ll> pot(n);
 	rep(_, n) {
