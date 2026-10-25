@@ -38,7 +38,7 @@ public:
 				}
 			}
 			if (dist[t] == INF) return { flow - f, cost };
-			rep(v, ssize(h)) h[v] += dist[v];
+			rep(v, ssize(h)) if (dist[v] != INF) h[v] += dist[v];
 			ll d = f;
 			for (int v = t; v != s; v = prevv[v]) chmin(d, G[prevv[v]][preve[v]].cap);
 			f -= d;
@@ -105,7 +105,7 @@ public:
 					for (int i = 0; i < ssize(G[v]); i++) {
 						edge& e = G[v][i];
 						if (e.cap == 0) continue;
-						if (dist[e.to] > dist[v] + e.cost + h[v] - h[e.to]) {
+						if (dist[v] != INF && dist[e.to] > dist[v] + e.cost + h[v] - h[e.to]) {
 							dist[e.to] = dist[v] + e.cost + h[v] - h[e.to];
 							prevv[e.to] = v, preve[e.to] = i;
 						}
@@ -134,7 +134,7 @@ public:
 				}
 			}
 			if (dist[t] == INF) return { flow - f, cost };
-			rep(v, ssize(h)) h[v] += dist[v];
+			rep(v, ssize(h)) if (dist[v] != INF) h[v] += dist[v];
 			ll d = f;
 			for (int v = t; v != s; v = prevv[v]) chmin(d, G[prevv[v]][preve[v]].cap);
 			f -= d;

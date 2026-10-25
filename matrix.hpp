@@ -212,6 +212,7 @@ mint count_eulerian_circuits(int n, vector<vector<int>> E) {
 		if (use) vec.push_back(i);
 	}
 	int sz = ssize(vec);
+	if (sz == 0) return 1; // 0 辺のときは答え 1 とする
 	vector M(sz - 1, vector<mint>(sz - 1));
 	rep(i, sz - 1) rep(j, sz - 1) {
 		if (i == j) M[i][j] = out[vec[j]];
