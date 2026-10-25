@@ -840,7 +840,7 @@ mint bostan_mori_998(fps f, fps g, ll n) {
 		if (n == 1) {
 			f.resize(2);
 			g.resize(2);
-			return (f[1] - f[0] * g[1]) / (g[0] * g[0]);
+			return (f[1] * g[0] - f[0] * g[1]) / (g[0] * g[0]);
 		}
 		if (n & 1) {
 			n++;
@@ -851,6 +851,7 @@ mint bostan_mori_998(fps f, fps g, ll n) {
 		fps nf, ng;
 		uint s0 = ssize(f) + ssize(g) - 1, s1 = ssize(g) + ssize(g) - 1;
 		int sz = bit_ceil(max(s0, s1));
+		chmax(sz, 2);
 		f.resize(sz); g.resize(sz); nf.resize(sz / 2); ng.resize(sz / 2);
 		dft(f); dft(g);
 		rep(i, sz) f[i] *= g[i ^ 1];

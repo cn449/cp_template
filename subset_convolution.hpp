@@ -54,13 +54,13 @@ sps sps_exp(sps& a) {
 	vector f(1 << n, vector<mint>());
 	rep(i, 1 << n) {
 		f[i].resize(n + 1);
-		f[i][popcount(i)] = a[i];
+		f[i][popcount<uint>(i)] = a[i];
 	}
 	sps_zeta(f);
 	rep(i, 1 << n) f[i] = sparse_exp(f[i]);
 	sps_mobius(f);
 	vector<mint> res(1 << n);
-	rep(i, 1 << n) res[i] = f[i][popcount(i)];
+	rep(i, 1 << n) res[i] = f[i][popcount<uint>(i)];
 	return res;
 }
 
@@ -69,18 +69,18 @@ sps sps_log(sps& a) {
 	vector f(1 << n, vector<mint>());
 	rep(i, 1 << n) {
 		f[i].resize(n + 1);
-		f[i][popcount(i)] = a[i];
+		f[i][popcount<uint>(i)] = a[i];
 	}
 	sps_zeta(f);
 	rep(i, 1 << n) f[i] = sparse_log(f[i]);
 	sps_mobius(f);
 	vector<mint> res(1 << n);
-	rep(i, 1 << n) res[i] = f[i][popcount(i)];
+	rep(i, 1 << n) res[i] = f[i][popcount<uint>(i)];
 	return res;
 }
 
 sps composite_poly_sps(Poly p, sps a) {
-	int m = ssize(p), n = countr_zero(uint(ssize(a)));
+	int m = ssize(p), n = countr_zero<uint>ssize(a));
 	mint const_term = a[0];
 	a[0] = 0;
 	vector<mint> pw(m + 1);
@@ -92,7 +92,7 @@ sps composite_poly_sps(Poly p, sps a) {
 	vector f(1 << n, vector<mint>());
 	rep(i, 1 << n) {
 		f[i].resize(n + 1);
-		f[i][popcount(i)] = a[i];
+		f[i][popcount<uint>(i)] = a[i];
 	}
 	sps_zeta(f);
 	rep(i, 1 << n) {
@@ -101,6 +101,6 @@ sps composite_poly_sps(Poly p, sps a) {
 	}
 	sps_mobius(f);
 	sps res(1 << n);
-	rep(i, 1 << n) res[i] = f[i][popcount(i)];
+	rep(i, 1 << n) res[i] = f[i][popcount<uint>(i)];
 	return res;
 }
