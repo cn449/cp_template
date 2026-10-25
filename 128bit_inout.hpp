@@ -10,7 +10,7 @@ istream& operator >>(istream& s, __int128_t& v) {
 	return s;
 }
 
-ostream& operator <<(ostream& s, __int128_t& v) {
+ostream& operator <<(ostream& s, __int128_t v) {
 	if (v == 0) { return s << 0; }
 	string str;
 	bool neg = false;
