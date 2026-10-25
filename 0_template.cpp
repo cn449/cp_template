@@ -113,7 +113,7 @@ public:
 		return res;
 	}
 	int val() const { return n; }
-	friend istream& operator >> (istream& s, modint<mod>& a) { s >> a.n; return s; }
+	friend istream& operator >> (istream& s, modint<mod>& a) { ll x; if (s >> x) a = modint(x); return s; }
 	friend ostream& operator << (ostream& s, const modint<mod>& a) { s << a.n; return s; }
 };
 
