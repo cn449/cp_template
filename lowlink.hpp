@@ -1,8 +1,11 @@
 // 多重辺, 非連結に対応
+// 1 頂点削除連結成分数 : https://atcoder.jp/contests/abc334/submissions/80364122
+// 2 重辺連結成分分解 : https://judge.yosupo.jp/submission/413190
+// 2 重頂点連結成分分解 : https://judge.yosupo.jp/submission/413191
 class lowlink {
 public:
 	int n; // 頂点数
-	int component; // 連結成分数
+	int component = 0; // 連結成分数
 	vector<vector<pair<int, bool>>> G; // 接続する頂点, 橋か
 	vector<vector<int>> dfs_tree; // 親 -> 子方向の辺だけ張ってます
 	vector<bool> root;
