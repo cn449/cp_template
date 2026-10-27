@@ -128,7 +128,7 @@ public:
 
 using BS = Bitset;
 
-vector<BS> mat_mul_F2(vector<BS> &a, vector<BS> &b) {
+vector<BS> mat_mul_F2(vector<BS>& a, vector<BS>& b) {
 	int n = ssize(a), m = a[0].size();
 	int m_ = ssize(b), k = b[0].size();
 	assert(m == m_);
@@ -137,11 +137,18 @@ vector<BS> mat_mul_F2(vector<BS> &a, vector<BS> &b) {
 	return res;
 }
 
-int mat_rank_F2(vector<BS>& a) {
+// https://judge.yosupo.jp/problem/matrix_rank_mod_2 はメモリが足りなくて通らない
+// そういうときは 1 個ずつ Bitset を動的に作れば ok
+int mat_rank_F2(const vector<BS>& a) {
 	vector<BS> basis;
+	vector<int> piv;
 	for (auto e : a) {
-		for (auto b : basis) if ((e ^ b) < e) e ^= b;
-		if (e.count() != 0) basis.push_back(e);
+		rep(i, ssize(basis)) if (e[piv[i]]) e ^= basis[i];
+		int p = e.find_first();
+		if (p != e.size()) {
+			piv.push_back(p);
+			basis.push_back(move(e));
+		}
 	}
 	return ssize(basis);
 }
@@ -163,7 +170,7 @@ template<class T> pair<int, vector<BS>> linear_equation_F2(vector<BS> a, vector<
 		rep(i, n) {
 			if (i == cur) continue;
 			if (a[i][j] == 0) continue;
-			a[i] = a[i] ^ a[cur];
+			a[i] ^= a[cur];
 			v[i] ^= v[cur];
 		}
 		cur++;
@@ -230,7 +237,7 @@ template<class T> pair<bool, vector<int>> find_linear_comb(vector<T>& a, T x, bo
 vector<ll> intersection_F2(vector<ll> a, vector<ll> b) {
 	constexpr int D = 30;
 
-	auto f = [&](vector<ll> v) -> array<ll, D> {
+	auto f = [&](vector<ll> v)->array<ll, D> {
 		array<ll, D> res{};
 		for (ll e : v) {
 			for (int i = D - 1; i >= 0; i--) chmin(e, e ^ res[i]);
