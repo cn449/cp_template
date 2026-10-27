@@ -173,6 +173,45 @@ template<class T> vector<T> characteristic_poly(vector<vector<T>> a) {
 	return dp[n];
 }
 
+template<class T> T pfaffian(vector<vector<T>> a) {
+	int n = ssize(a);
+	rep(i, n) assert(ssize(a[i]) == n);
+	rep(i, n) rep(j, n) assert(a[i][j] == -a[j][i]);
+	if (n % 2 == 1) return 0;
+
+	auto f = [&](int i, int j, T coeff) {
+		assert(i != j);
+		rep(k, n) {
+			a[i][k] += a[j][k] * coeff;
+			a[k][i] += a[k][j] * coeff;
+		}
+	};
+
+	T res = 1;
+	rep(k, n - 1) {
+		int x = -1, y = -1;
+		for (int i = k; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (a[i][j] != 0) {
+					x = i, y = j;
+					break;
+				}
+			}
+			if (x != -1) break;
+		}
+		if (x == -1 && y == -1) return 0;
+		if (x != k) f(k, x, 1);
+		if (y != k + 1) f(k + 1, y, 1);
+		assert(a[k][k + 1] != 0);
+		if (k % 2 == 0) res *= a[k][k + 1];
+		for (int i = k + 2; i < n; i++) {
+			T coeff = a[k][i] / a[k][k + 1];
+			f(i, k + 1, -coeff);
+		}
+	}
+	return res;
+}
+
 mint count_undirected_spanning_trees(int n, vector<vector<int>> E) {
 	assert(ssize(E) == n);
 	rep(i, n) assert(ssize(E[i]) == n);
